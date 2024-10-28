@@ -16,7 +16,7 @@ import { Grid, Box, useMediaQuery, useTheme } from "@mui/material";
 import { useDemoView } from "../../hooks";
 
 // Componentes genéricos
-import { LoadingComponent } from "../../components";
+import { LoadingComponent,Footer } from "../../components";
 
 // Componentes propios
 import { DemoHeader, DemoEventCard, ConfirmationModal } from "./DemoViewComponents";
@@ -174,6 +174,7 @@ const DemoView = ({ userId }) => {
           menus={menus}
           allergies={allergies}
         />
+        {/* <Footer /> Hay que hacer el footer*/}
       </Box>
     </Box>
   );

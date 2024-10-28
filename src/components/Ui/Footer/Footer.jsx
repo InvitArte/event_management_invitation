@@ -8,7 +8,40 @@ import React from "react";
 
 // Material-UI
 import { Box, Typography, Link, Container } from "@mui/material";
+import { styled } from "@mui/system";
 
+// Estilos personalizados usando los colores y fuentes del sistema
+const FooterBox = styled(Box)(({ theme }) => ({
+  backgroundColor: "white",
+  padding: theme.spacing(6, 0),
+  borderTop: "1px solid rgba(141, 84, 68, 0.1)",
+}));
+
+const FooterTitle = styled(Typography)(({ theme }) => ({
+  fontFamily: "'CormorantUpright', regular",
+  fontSize: "2rem",
+  color: "#8D5444",
+  marginBottom: theme.spacing(2),
+}));
+
+const FooterCopyright = styled(Typography)(({ theme }) => ({
+  fontFamily: "'Prata', serif",
+  fontSize: "1rem",
+  color: "#231f20",
+  opacity: 0.8,
+  marginBottom: theme.spacing(2),
+}));
+
+const FooterLink = styled(Link)(({ theme }) => ({
+  fontFamily: "'Prata', serif",
+  color: "#8D5444",
+  textDecoration: "none",
+  transition: "all 0.3s ease",
+  "&:hover": {
+    color: "#774436",
+    textDecoration: "none",
+  },
+}));
 /**
  * @component
  * @name module:Footer
@@ -25,31 +58,29 @@ import { Box, Typography, Link, Container } from "@mui/material";
  */
 const Footer = () => {
   return (
-    <Box component="footer" sx={{ bgcolor: "background.paper", py: 6 }}>
+    <FooterBox component="footer">
       <Container maxWidth="lg">
-        <Typography variant="h6" align="center" gutterBottom>
-          Gestor de Eventos
-        </Typography>
-        <Typography
+        <FooterTitle variant="h6" align="center" gutterBottom>
+          InvitArte
+        </FooterTitle>
+        <FooterCopyright
           variant="subtitle1"
           align="center"
-          color="text.secondary"
           component="p"
         >
-          © {new Date().getFullYear()} InvitArte. Todos los derechos
-          reservados.
-        </Typography>
-        <Typography variant="body2" color="text.secondary" align="center">
-          <Link color="inherit" href="#">
+          © {new Date().getFullYear()} InvitArte. Todos los derechos reservados.
+        </FooterCopyright>
+        <Typography variant="body2" align="center">
+          <FooterLink href="#">
             Política de Privacidad
-          </Link>
+          </FooterLink>
           {" | "}
-          <Link color="inherit" href="#">
-            Terminos y Condiciones
-          </Link>
+          <FooterLink href="#">
+            Términos y Condiciones
+          </FooterLink>
         </Typography>
       </Container>
-    </Box>
+    </FooterBox>
   );
 };
 
