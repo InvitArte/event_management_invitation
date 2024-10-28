@@ -1,0 +1,15 @@
+@font-face {
+    font-family: "FuenteLocal";
+    src: url("../assets/fonts/Prata-Regular.ttf") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "CormorantUpright";
+    src: url("../assets/fonts/CormorantUpright-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+
+
+}

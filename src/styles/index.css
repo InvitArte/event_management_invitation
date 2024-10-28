@@ -1,0 +1,18 @@
+@import url('./fonts.css');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "Prata", serif;
+}
+
+.cormoranUpright-font {
+  font-family: "CormorantUpright", regular;
+}
