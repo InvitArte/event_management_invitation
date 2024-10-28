@@ -32,7 +32,7 @@ import "../../../styles/fonts.css";
  * @param {Array} props.menus - Lista de menús disponibles
  * @param {Array} props.allergies - Lista de alergias disponibles
  */
-const ConfirmationModal = ({ isOpen, onClose, userId, menus, allergies }) => {
+const ConfirmationModal = ({ isOpen, onClose, userId }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -77,8 +77,6 @@ const ConfirmationModal = ({ isOpen, onClose, userId, menus, allergies }) => {
             onFormChange={handleFormChange}
             onValidationChange={handleValidationChange}
             formErrors={formErrors}
-            menus={menus}
-            allergies={allergies}
           />
         )}
         {formErrors.submit && <ErrorMessage>{formErrors.submit}</ErrorMessage>}
@@ -117,14 +115,6 @@ ConfirmationModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  menus: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    name: PropTypes.string.isRequired,
-  })).isRequired,
-  allergies: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    name: PropTypes.string.isRequired,
-  })).isRequired,
 };
 
 // Optimizamos el rendimiento con memo

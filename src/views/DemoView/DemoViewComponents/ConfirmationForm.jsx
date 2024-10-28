@@ -1,7 +1,3 @@
-/**
- * @module UI/Demo/Components
- * @description Formulario de confirmación para la inscripción al evento
- */
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import PropTypes from "prop-types";
 import {
@@ -13,6 +9,8 @@ import {
   MenuItem,
   Autocomplete,
 } from "@mui/material";
+import publicServices from "../../../services/publicAxiosConfig";
+import { defaultConfig } from "../../../config";
 import {
   CustomFormControl,
   CustomTextField,
@@ -31,7 +29,7 @@ const initialFormData = {
     needs_transport_back: false,
     needs_hotel: false,
     menu_id: "",
-    allergies: [],
+    allergies: [], // Ahora es un array de strings
     accommodation_plan: "",
     observations: "",
     honeypot: false,
@@ -40,7 +38,7 @@ const initialFormData = {
     first_name: "",
     last_name: "",
     menu_id: "",
-    allergies: [],
+    allergies: [], // Ahora es un array de strings
   },
   hasPlusOne: "no",
 };
@@ -50,11 +48,42 @@ const ConfirmationForm = ({
   onValidationChange,
   formErrors,
   initialData = null,
-  menus,
-  allergies,
 }) => {
   const [formData, setFormData] = useState(initialData || initialFormData);
   const [touchedFields, setTouchedFields] = useState({});
+  const [menus, setMenus] = useState([]);
+  const [allergies, setAllergies] = useState([]);
+  useEffect(() => {
+    const loadMenusAndAllergies = async () => {
+      try {
+        const userId = defaultConfig.userId;
+        const [menusData, allergiesData] = await Promise.all([
+          publicServices.getMenus(userId),
+          publicServices.getAllergies(),
+        ]);
+
+        if (Array.isArray(menusData)) {
+          setMenus(menusData);
+        } else {
+          console.error("Unexpected menus data format:", menusData);
+          setMenus([]);
+        }
+
+        if (Array.isArray(allergiesData)) {
+          setAllergies(allergiesData);
+        } else {
+          console.error("Unexpected allergies data format:", allergiesData);
+          setAllergies([]);
+        }
+      } catch (error) {
+        console.error("Error loading menus or allergies:", error);
+        setMenus([]);
+        setAllergies([]);
+      }
+    };
+
+    loadMenusAndAllergies();
+  }, []);
 
   useEffect(() => {
     onFormChange(formData);
@@ -79,9 +108,21 @@ const ConfirmationForm = ({
     validateField("guest", "menu_id", "El menú es requerido");
 
     if (hasPlusOne === "yes") {
-      validateField("plus_one", "first_name", "El nombre del acompañante es requerido");
-      validateField("plus_one", "last_name", "El apellido del acompañante es requerido");
-      validateField("plus_one", "menu_id", "El menú del acompañante es requerido");
+      validateField(
+        "plus_one",
+        "first_name",
+        "El nombre del acompañante es requerido"
+      );
+      validateField(
+        "plus_one",
+        "last_name",
+        "El apellido del acompañante es requerido"
+      );
+      validateField(
+        "plus_one",
+        "menu_id",
+        "El menú del acompañante es requerido"
+      );
     }
 
     return Object.keys(errors).length === 0;
@@ -111,7 +152,7 @@ const ConfirmationForm = ({
       ...prevData,
       [section]: {
         ...prevData[section],
-        allergies: newValue,
+        allergies: newValue, // Ahora newValue es un array de strings
       },
     }));
   }, []);
@@ -189,31 +230,33 @@ const ConfirmationForm = ({
   );
 
   const renderAllergySelect = useCallback(
-    (section) => (
-      <Grid item xs={12} key={`${section}-allergies`}>
-        <Autocomplete
-          multiple
-          freeSolo
-          id={`${section}-allergies-select`}
-          options={allergies.map(allergy => allergy.name)}
-          value={formData[section].allergies}
-          onChange={(event, newValue) =>
-            handleAllergyChange(event, newValue, section)
-          }
-          renderInput={(params) => (
-            <CustomTextField
-              {...params}
-              label={`Seleccione o escriba las alergias ${
-                section === "plus_one" ? "del acompañante" : ""
-              }`}
-              variant="standard"
-              error={!!formErrors[`${section}.allergies`]}
-              helperText={formErrors[`${section}.allergies`]}
-            />
-          )}
-        />
-      </Grid>
-    ),
+    (section) => {
+      return (
+        <Grid item xs={12} key={`${section}-allergies`}>
+          <Autocomplete
+            multiple
+            freeSolo
+            id={`${section}-allergies-select`}
+            options={allergies.map(allergy => allergy.name)}
+            value={formData[section].allergies}
+            onChange={(event, newValue) =>
+              handleAllergyChange(event, newValue, section)
+            }
+            renderInput={(params) => (
+              <CustomTextField
+                {...params}
+                label={`Seleccione o escriba las alergias ${
+                  section === "plus_one" ? "del acompañante" : ""
+                }`}
+                variant="standard"
+                error={!!formErrors[`${section}.allergies`]}
+                helperText={formErrors[`${section}.allergies`]}
+              />
+            )}
+          />
+        </Grid>
+      );
+    },
     [formData, formErrors, allergies, handleAllergyChange]
   );
 
@@ -331,11 +374,7 @@ const ConfirmationForm = ({
               control={<CustomRadio />}
               label="Sí"
             />
-            <FormControlLabel
-              value="no"
-              control={<CustomRadio />}
-              label="No"
-            />
+            <FormControlLabel value="no" control={<CustomRadio />} label="No" />
           </RadioGroup>
         </CustomFormControl>
       </Grid>
@@ -369,14 +408,7 @@ ConfirmationForm.propTypes = {
   onValidationChange: PropTypes.func.isRequired,
   formErrors: PropTypes.object,
   initialData: PropTypes.object,
-  menus: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    name: PropTypes.string.isRequired,
-  })),
-  allergies: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    name: PropTypes.string.isRequired,
-  })),
 };
 
-export default React.memo(ConfirmationForm);
+const memoizedConfirmationForm = React.memo(ConfirmationForm);
+export default memoizedConfirmationForm;
