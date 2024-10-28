@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { LoadingComponent } from "./components";
-import { DemoView } from "./views";
+import { DemoView, NotFoundView } from "./views";
 import { usePublicUserConfig } from "./context";
 
 /**
@@ -37,6 +37,7 @@ const AppContent = () => {
           />
         }
       />
+      <Route path="*" element={<NotFoundView />} />
     </Routes>
   );
 };
