@@ -107,6 +107,7 @@ const useConfirmationModal = ({ isOpen, userId }) => {
     const guestData = {
       ...formData.guest,
       user_id: userId,
+      validated:false,
     };
     const plusOneData = formData.hasPlusOne === "yes" ? formData.plus_one : null;
 

@@ -33,6 +33,7 @@ const initialFormData = {
     accommodation_plan: "",
     observations: "",
     honeypot: false,
+    validated: false,
   },
   plus_one: {
     first_name: "",
