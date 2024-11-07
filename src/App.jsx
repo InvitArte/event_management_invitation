@@ -17,7 +17,7 @@ const App = () => {
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
       <BackgroundImageProvider>
         <PublicUserConfigProvider>
-          <Router>
+          <Router basename="/event_management_system_invitation">
             <AppContent />
           </Router>
         </PublicUserConfigProvider>
