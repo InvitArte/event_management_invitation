@@ -4,7 +4,7 @@
   "license": "UNLICENSED",
   "version": "0.7.2b",
   "type": "module",
-  "homepage": "https://invitarte.github.io/event_management_system_invitation/",
+  "homepage": "https://invitarte.github.io/event_management_invitation/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
