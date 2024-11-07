@@ -3,24 +3,94 @@ import PropTypes from "prop-types";
 import { Box, useMediaQuery, useTheme, Typography, styled } from "@mui/material";
 import { IS_DEMO } from "../../../config/api/BaseUrl";
 import { formatDateForCalendar } from "../../../components";
-import {
-  TimeUnit,
-  TimeValue,
-  TimeLabel,
-  ElegantButton,
-} from "./ConfirmationModalStyles";
-import floralSeparator from "../../../assets/imgs/FloralSeparator.svg";
+import { ElegantButton } from "./ConfirmationModalStyles";
+import Tapiz from "../../../assets/imgs/tapiz.jpeg";
 
-const CountdownContainer = styled('div')({
+const BackgroundContainer = styled(Box)(() => ({
+  width: "100vw",
+  minHeight: "100vh",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  position: "relative",
+  margin: 0,
+  padding: 0,
+  backgroundColor: "#2F4F4F",
+  backgroundImage: `url(${Tapiz})`,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'transparent',
+    zIndex: 0,
+  }
+}));
+
+const ContentWrapper = styled(Box)({
+  position: 'relative',
+  zIndex: 1,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  textAlign: "center",
+  margin: 0,
+  padding: 0
+});
+
+const CountdownContainer = styled('div')(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   gap: "2px",
   width: "100%",
   padding: "0 10px",
-});
+  marginBottom: "2rem",
+  [theme.breakpoints.up('sm')]: {
+    gap: "4px",
+    padding: "0 20px",
+    marginBottom: "3rem",
+  }
+}));
 
-const Divider = styled('span')({
+const TimeUnit = styled('div')(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  [theme.breakpoints.up('sm')]: {
+    minWidth: "120px",
+  }
+}));
+
+const TimeValue = styled(Typography)(({ theme }) => ({
+  fontSize: "2rem",
+  lineHeight: 1,
+  color: "#2F4F4F",
+  fontFamily: "'Elegant_font', bold",
+  [theme.breakpoints.up('sm')]: {
+    fontSize: "3.5rem",
+  }
+}));
+
+const TimeLabel = styled(Typography)(({ theme }) => ({
+  fontSize: "0.8rem",
+  lineHeight: 1,
+  marginTop: "4px",
+  color: "#656565",
+  [theme.breakpoints.up('sm')]: {
+    fontSize: "1.2rem",
+    marginTop: "8px",
+  }
+}));
+
+const Divider = styled('span')(({ theme }) => ({
   color: "#656565",
   fontSize: "1.5rem",
   fontWeight: "300",
@@ -28,51 +98,12 @@ const Divider = styled('span')({
   alignSelf: "flex-start",
   marginTop: "12px",
   padding: "0 2px",
-});
-
-const CompactTimeUnit = styled(TimeUnit)({
-  padding: "0",
-  minWidth: "auto",
-  "& > *": {
-    lineHeight: 1,
+  [theme.breakpoints.up('sm')]: {
+    fontSize: "2rem",
+    marginTop: "16px",
+    padding: "0 8px",
   }
-});
-
-const FloralImage = styled('img')({
-  width: '60px',
-  height: 'auto',
-  marginTop: '20px',
-});
-
-const getRoundContainerStyles = (isMobile) => ({
-  padding: isMobile ? "20px" : "30px",
-  backgroundColor: "rgba(255, 255, 255, 0.3)",
-  backdropFilter: "blur(0.5px)",
-  borderRadius: "50%",
-  width: isMobile ? "280px" : "320px",
-  height: isMobile ? "280px" : "320px",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  position: "relative",
-  overflow: "hidden",
-  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
-  border: "1px solid rgba(255, 255, 255, 0.3)"
-});
-
-const CompactTimeValue = styled(TimeValue)({
-  fontSize: "2rem !important",
-  lineHeight: "1 !important",
-  padding: "0 !important",
-  margin: "0 !important",
-});
-
-const CompactTimeLabel = styled(TimeLabel)({
-  fontSize: "0.8rem !important",
-  lineHeight: "1 !important",
-  marginTop: "4px !important",
-});
+}));
 
 const CalendarButton = React.memo(({ eventLocations }) => {
   const theme = useTheme();
@@ -102,7 +133,7 @@ const CalendarButton = React.memo(({ eventLocations }) => {
     if (!displayDate) return;
     const startDate = formatDateForCalendar(displayDate);
     const endDate = formatDateForCalendar(new Date(displayDate.getTime() + 2 * 60 * 60 * 1000));
-    const locationString = eventLocations.map((location) => location.direccion).join(", ");
+    const locationString = eventLocations?.map((location) => location.direccion).join(", ");
     const url = `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
       "Boda de María y Thibault"
     )}&dates=${startDate}/${endDate}&details=${encodeURIComponent(
@@ -114,47 +145,53 @@ const CalendarButton = React.memo(({ eventLocations }) => {
   if (!displayDate) return null;
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-    >
-      <Box sx={getRoundContainerStyles(isMobile)}>
+    <BackgroundContainer>
+      <ContentWrapper>
+        <Typography
+          sx={{
+            fontFamily: "'Elegant_font', bold",
+            fontSize: isMobile ? "4.4rem" : "7rem",
+            color: "#2F4F4F",
+          }}
+        >
+          Nos Casamos
+        </Typography>
         <Typography
           variant="h6"
           sx={{
             fontFamily: "'Elegant_font', bold",
-            fontSize: isMobile ? "1.9rem" : "1.5rem",
+            fontSize: isMobile ? "1.9rem" : "2.5rem",
             color: "#2F4F4F",
-            mb: 2,
-            // textTransform: "uppercase",
+            mb: isMobile ? 2 : 4,
             letterSpacing: "0.1em"
           }}
         >
           Faltan
         </Typography>
         <CountdownDisplay timeLeft={timeLeft} isMobile={isMobile} />
-        <FloralImage src={floralSeparator} alt="Separador floral" />
-      </Box>
-
-      <Box
-        mt={{
-          xs: 40,
-          md: 10
-        }}
-      >
-        <ElegantButton inverted="true" onClick={addToGoogleCalendar}>
+        <ElegantButton
+          inverted="true"
+          onClick={addToGoogleCalendar}
+          sx={{
+            fontSize: isMobile ? "1rem" : "1.4rem",
+            padding: isMobile ? "8px 16px" : "12px 24px",
+          }}
+        >
           Save the date
         </ElegantButton>
-      </Box>
-    </Box>
+      </ContentWrapper>
+    </BackgroundContainer>
   );
 });
 
 const CountdownDisplay = React.memo(({ timeLeft, isMobile }) => {
   if (!timeLeft || Object.keys(timeLeft).length === 0) {
     return (
-      <Typography sx={{ color: 'inherit', fontFamily: "'CormorantUpright', regular" }}>
+      <Typography sx={{
+        color: 'inherit',
+        fontFamily: "'CormorantUpright', regular",
+        fontSize: isMobile ? "1.5rem" : "2.5rem"
+      }}>
         ¡El gran día ha llegado!
       </Typography>
     );
@@ -168,14 +205,14 @@ const CountdownDisplay = React.memo(({ timeLeft, isMobile }) => {
         <React.Fragment key={unit}>
           {timeLeft[unit] !== undefined && (
             <>
-              <CompactTimeUnit>
-                <CompactTimeValue>
+              <TimeUnit>
+                <TimeValue>
                   {String(timeLeft[unit]).padStart(2, '0')}
-                </CompactTimeValue>
-                <CompactTimeLabel>
+                </TimeValue>
+                <TimeLabel>
                   {unit}
-                </CompactTimeLabel>
-              </CompactTimeUnit>
+                </TimeLabel>
+              </TimeUnit>
               {index < displayUnits.length - 1 && <Divider>|</Divider>}
             </>
           )}
@@ -200,12 +237,22 @@ const calculateTimeLeft = (displayDate) => {
   };
 };
 
+CountdownDisplay.propTypes = {
+  timeLeft: PropTypes.shape({
+    dias: PropTypes.number,
+    horas: PropTypes.number,
+    minutos: PropTypes.number,
+    segundos: PropTypes.number
+  }),
+  isMobile: PropTypes.bool
+};
+
 CalendarButton.propTypes = {
   eventLocations: PropTypes.arrayOf(
     PropTypes.shape({
       direccion: PropTypes.string,
     })
-  ).isRequired,
+  ),
 };
 
 export default CalendarButton;

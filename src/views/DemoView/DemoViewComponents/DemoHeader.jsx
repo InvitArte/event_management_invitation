@@ -1,137 +1,154 @@
-// React
 import React from "react";
-
-// Bibliotecas de terceros
 import PropTypes from "prop-types";
-
-// Material-UI
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-
-// Componentes propios
 import { ConfirmButton } from "./index";
-
-// Assets y estilos
 import { mainBlue } from "./index";
-import { Opacity } from "@mui/icons-material";
+import M_H_fondo from "../../../assets/imgs/M_H_fondo.jpeg";
+import MainDesktop from "../../../assets/imgs/Main_desktop.jpeg";
 
-/**
- * @component DemoHeader
- * @description Componente que representa el encabezado de la invitación de boda de la vista Demo.
- * Muestra el título del evento, los nombres de la pareja y un botón de confirmación.
- *
- * @param {Object} props - Las propiedades del componente.
- * @param {function} props.onOpenModal - Función para abrir el modal de confirmación.
- *
- * @returns {React.Element} Un elemento React que representa el encabezado de la invitación.
- *
- * @example
- * // Ejemplo de uso del componente
- * <DemoHeader onOpenModal={() => setModalOpen(true)} />
- */
 const DemoHeader = ({ onOpenModal }) => {
-
-  /**
-   * @constant {Object} theme - Tema actual de la aplicación.
-   */
   const theme = useTheme();
-
-  /**
-   * @constant {boolean} isMobile - Determina si la vista es móvil o no.
-   */
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <Box sx={getContainerStyles(isMobile)}>
       <Box sx={getTitleContainerStyles(isMobile)}>
-        <Typography variant="h2" sx={getSubtitleStyles()}>
-          -18 de Octubre, 2025-
-        </Typography>
-        <Typography variant="h1" sx={getTitleStyles()}>
-          Maria <span style={getAmpersandStyles()}>&</span> Thibault
-        </Typography>
-        {/* <Box sx={getButtonContainerStyles()}>
-          <ConfirmButton onClick={onOpenModal} fullWidth={isMobile} />
-        </Box> */}
+        <Box sx={getNameContainerStyles()}>
+          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', position: 'relative', right: '14%' }}>
+            <Typography variant="h1" sx={getNameStyles()}>
+              María
+            </Typography>
+          </Box>
+          <Box sx={getSecondLineStyles()}>
+            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+              <Typography variant="h1" component="span" sx={getAmpersandStyles()}>
+                &
+              </Typography>
+              <Typography variant="h1" component="span" sx={getNameStyles()}>
+                Thibault
+              </Typography>
+            </Box>
+          </Box>
+          <Typography variant="h2" sx={getSubtitleStyles()}>
+            SAVE THE DATE
+          </Typography>
+          <Typography variant="h2" sx={getDateStyles()}>
+            -18·OCT·2025-
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );
 };
 
-/**
- * @function getContainerStyles
- * @description Obtiene los estilos para el contenedor principal del encabezado.
- * @param {boolean} isMobile - Indica si se está en vista móvil.
- * @returns {Object} Objeto de estilos para el contenedor principal.
- */
 const getContainerStyles = (isMobile) => ({
   width: "100%",
+  height: "100vh",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  padding: isMobile ? "20px" : "40px",
+  padding: 0,
+  position: "relative",
+  backgroundImage: isMobile ? `url(${M_H_fondo})` : `url(${MainDesktop})`,
+  backgroundColor: isMobile ? 'transparent' : 'transparent',
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  boxShadow: "2px 26px 13px -8px rgba(0,0,0,0.5)",
+  marginBottom: 0,
+  borderBottom: 0,
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: isMobile ? "rgba(255, 255, 255, 0.3)" : "rgba(255, 255, 255, 0.5)",
+  },
+  "&::after": {
+    display: 'none' // Eliminar el after que podría estar creando espacio
+  }
 });
 
-/**
- * @function getTitleContainerStyles
- * @description Obtiene los estilos para el contenedor del título.
- * @param {boolean} isMobile - Indica si se está en vista móvil.
- * @returns {Object} Objeto de estilos para el contenedor del título.
- */
+
 const getTitleContainerStyles = (isMobile) => ({
-  padding: isMobile ? "20px 40px" : "40px 80px",
-  //backgroundColor: "rgba(255, 255, 255, 0.4)",
-  //backdropFilter: "blur(0px)",
-  //borderRadius: "2px",
-  //boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-  //border: "1px solid rgba(255, 255, 255, 0.3)",
+  position: "relative",
+  padding: 0,
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  width: isMobile ? "auto" : "80%",
-  maxWidth: "800px",
+  width: "100%",
+  maxWidth: "1400px",
+  zIndex: 1,
 });
 
-/**
- * @function getSubtitleStyles
- * @description Obtiene los estilos para el subtítulo.
- * @returns {Object} Objeto de estilos para el subtítulo.
- */
+const getNameContainerStyles = () => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  width: "100%",
+  gap: { xs: "0.5rem", sm: "0.75rem", md: "1rem" },
+});
+
+const getSecondLineStyles = () => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  width: "100%",
+  marginTop: { xs: "0.5rem", sm: "0.75rem", md: "1rem" },
+});
+
 const getSubtitleStyles = () => ({
-  fontFamily: "'Elegant_font', bold",
-  fontSize: { xs: "1.4rem", sm: "1.5rem" },
-  color: "white", // Cambiado de "black" a "white"
-  textShadow: "2px 2px 4px rgba(0,0,0,0.5)", // Cambiado para sombra negra
-  marginBottom: "5px",
-});
-
-const getTitleStyles = () => ({
-  fontFamily: "'Elegant_font', bold",
-  fontSize: { xs: "2.5rem", sm: "3.5rem" },
-  color: "white", // Añadido color blanco
-  textShadow: "2px 2px 4px rgba(0,0,0,0.5)", // Corregido para dar sombra negra
+  fontFamily: "'CormorantUpright', bold",
+  fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
+  color: "white",
+  letterSpacing: "0.3em",
+  marginTop: "4rem",
   textAlign: "center",
-  lineHeight: 1.2,
+  textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
 });
 
-/**
- * @function getAmpersandStyles
- * @description Obtiene los estilos para el símbolo '&' en el título.
- * @returns {Object} Objeto de estilos para el símbolo '&'.
- */
+const getDateStyles = () => ({
+  fontFamily: "'CormorantUpright', bold",
+  fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
+  color: "white",
+  letterSpacing: "0.2em",
+  marginTop: "1rem",
+  textAlign: "center",
+  textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+});
+
+const getNameStyles = () => ({
+  fontFamily: "'Elegant_font', bold",
+  fontSize: {
+    xs: "7rem",
+    sm: "8rem",
+    md: "12rem",
+    lg: "15rem"
+  },
+  color: "#4a4d4b",
+  textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+  lineHeight: 0.8,
+  letterSpacing: "0.05em",
+  fontWeight: 300,
+  whiteSpace: "nowrap",
+});
+
 const getAmpersandStyles = () => ({
-  fontSize: "1.5em",
+  fontFamily: "'Elegant_font', bold",
+  fontSize: {
+    xs: "7rem",
+    sm: "8rem",
+    md: "12rem",
+    lg: "15rem"
+  },
   color: mainBlue,
   verticalAlign: "middle",
-});
-
-/**
- * @function getButtonContainerStyles
- * @description Obtiene los estilos para el contenedor del botón de confirmación.
- * @returns {Object} Objeto de estilos para el contenedor del botón.
- */
-const getButtonContainerStyles = () => ({
-  marginTop: "20px",
-  width: { xs: "100%", sm: "auto" },
+  lineHeight: 0.8,
+  fontWeight: 300,
+  textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
+  marginRight: "0 rem",
 });
 
 DemoHeader.propTypes = {

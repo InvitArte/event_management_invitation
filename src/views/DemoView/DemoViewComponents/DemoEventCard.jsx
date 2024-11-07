@@ -1,20 +1,6 @@
-/**
- *  @module UI/Demo
- *  @description Este módulo contiene componentes relacionados con la vista de demostración pública de eventos.
-*/
-// React y hooks
 import React, { useState, useEffect, useCallback, useRef } from "react";
-
-// Biblioteca de terceros
 import PropTypes from "prop-types";
-
-// Material-UI
-import { useMediaQuery, useTheme, Box, Typography } from "@mui/material";
-
-// Componentes genéricos
-import { CustomCard } from "../../../components";
-
-// Componentes propios
+import { useMediaQuery, useTheme, Box } from "@mui/material";
 import {
   CalendarButton,
   ConfirmationModal,
@@ -25,38 +11,9 @@ import {
   EventSubtitle,
   EventInfo
 } from './index';
-
-// Assets y estilos
 import FloralSeparator from "../../../assets/imgs/FloralSeparator.svg";
 
-/**
- * @component
- * @name DemoEventCard
- * @memberof module:UI/Demo
- * @category UI
- * @description Componente que muestra la información detallada de un evento de boda, incluyendo fecha, ubicaciones, timeline y opciones de confirmación.
- *
- * @param {Object} props - Las propiedades del componente.
- * @param {string|number} props.userId - El ID del usuario.
- * @param {boolean} props.showTitle - Indica si se debe mostrar el título del evento.
- * @param {Date} props.eventDate - La fecha del evento.
- * @param {string} props.eventDateString - La fecha del evento en formato de cadena.
- * @param {Array} props.eventLocations - Array de objetos con las ubicaciones del evento.
- * @param {boolean} [props.useCardStyles=true] - Indica si se deben aplicar estilos de tarjeta al componente.
- *
- * @returns {React.Element} Un elemento React que representa la tarjeta de evento de boda.
- *
- * @example
- * // Ejemplo de uso del componente
- * <DemoEventCard
- *   userId="12345"
- *   showTitle={true}
- *   eventDate={new Date('2024-12-31')}
- *   eventDateString="31 de Diciembre, 2024"
- *   eventLocations={[{ direccion: "Iglesia San José", hora: "16:00" }]}
- *   useCardStyles={true}
- * />
- */
+
 const DemoEventCard = ({
   userId,
   showTitle,
@@ -65,55 +22,14 @@ const DemoEventCard = ({
   eventLocations,
   useCardStyles = true,
 }) => {
-
-  /**
-   * @state {boolean} isModalOpen
-   * @description Estado que indica si el modal de confirmación está abierto.
-   * @default false
-   */
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  /**
-   * @state {number} timelineProgress
-   * @description Estado que indica el progreso del timeline en porcentaje.
-   * @default 0
-   */
   const [timelineProgress, setTimelineProgress] = useState(0);
-
-  /**
-   * @constant {Object} cardRef
-   * @description Referencia al elemento de la tarjeta.
-   * @default null
-   */
   const cardRef = useRef(null);
-
-  /**
-   * @constant {Object} timelineRef
-   * @description Referencia al elemento del timeline.
-   * @default null
-   */
   const timelineRef = useRef(null);
-
-  /**
-   * @constant {Object} theme
-   * @description Accede al tema actual de la aplicación.
-   */
   const theme = useTheme();
-
-  /**
-   * @constant {boolean} isMobile
-   * @description Indica si la vista es móvil.
-   */
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
-    /**
-     * @function
-     * @name handleScroll
-     * @memberof module:UI/Demo.DemoEventCard
-     * @inner
-     * @description Maneja el evento de scroll para actualizar el progreso del timeline.
-     */
     const handleScroll = () => {
       if (timelineRef.current) {
         const timelineRect = timelineRef.current.getBoundingClientRect();
@@ -137,24 +53,10 @@ const DemoEventCard = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  /**
-   * @function
-   * @name handleOpenModal
-   * @memberof module:UI/Demo.DemoEventCard
-   * @inner
-   * @description Abre el modal de confirmación.
-   */
   const handleOpenModal = useCallback(() => {
     setIsModalOpen(true);
   }, []);
 
-  /**
-   * @function
-   * @name handleCloseModal
-   * @memberof module:UI/Demo.DemoEventCard
-   * @inner
-   * @description Cierra el modal de confirmación.
-   */
   const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
   }, []);
@@ -163,14 +65,59 @@ const DemoEventCard = ({
     return null;
   }
 
-  /**
-   * @function
-   * @name FloralSeparatorComponent
-   * @memberof module:UI/Demo.DemoEventCard
-   * @inner
-   * @description Renderiza un separador floral.
-   * @returns {React.Element} Un elemento React que representa el separador floral.
-   */
+  const getCardStyles = (isMobile) => ({
+    width: "100vw",
+    minHeight: "100vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    boxShadow: "none",
+    backgroundColor: "transparent",
+    margin: 0,
+    padding: 0,
+    left: "50%",
+    transform: "translateX(-50%)",
+    "&::before": {
+      content: '""',
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundImage: isMobile ? `url(${Ejemplo})` : 'none',
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+      opacity: isMobile ? 1 : 0,
+      zIndex: 0
+    },
+    "&::after": {
+      content: '""',
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: isMobile ? "rgba(255, 255, 255, 0.5)" : "transparent",
+      backdropFilter: isMobile ? "blur(0px)" : "none",
+      zIndex: 1
+    }
+  });
+
+  const getContentStyles = () => ({
+    position: "relative",
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: { xs: 2, sm: 3, md: 4 },
+    zIndex: 2,
+    backgroundColor: "transparent"
+  });
+
   const FloralSeparatorComponent = () => (
     <Box
       component="img"
@@ -186,34 +133,18 @@ const DemoEventCard = ({
     />
   );
 
-  /**
-   * @function
-   * @name renderTitle
-   * @memberof module:UI/Demo.DemoEventCard
-   * @inner
-   * @description Renderiza el título del evento si showTitle es true.
-   * @returns {React.Element|null} Un elemento React que representa el título del evento o null.
-   */
   const renderTitle = () => {
     if (!showTitle) return null;
     return (
-      <>
-        <EventSubtitle variant="h2">¡Nos casamos!</EventSubtitle>
-        <EventTitleStyle variant="h1">Maria  &  Thibault</EventTitleStyle>
-      </>
+      <Box sx={{ textAlign: 'center', mb: 4 }}>
+        <EventSubtitle variant="h2" sx={{ mb: 2 }}>¡Nos casamos!</EventSubtitle>
+        <EventTitleStyle variant="h1">Maria & Thibault</EventTitleStyle>
+      </Box>
     );
   };
 
-  /**
-   * @function
-   * @name renderEventInfo
-   * @memberof module:UI/Demo.DemoEventCard
-   * @inner
-   * @description Renderiza la información del evento, incluyendo la fecha y el botón de calendario.
-   * @returns {React.Element} Un elemento React que representa la información del evento.
-   */
   const renderEventInfo = () => (
-    <EventInfo>
+    <EventInfo sx={{ width: '100%', maxWidth: 'sm', mb: 4 }}>
       <Box display="flex" flexDirection="column" gap={2}>
         <CalendarButton
           eventDate={eventDate}
@@ -224,16 +155,16 @@ const DemoEventCard = ({
     </EventInfo>
   );
 
-  /**
-   * @function
-   * @name renderEventTimeline
-   * @memberof module:UI/Demo.DemoEventCardK
-   * @inner
-   * @description Renderiza el timeline del evento.
-   * @returns {React.Element} Un elemento React que representa el timeline del evento.
-   */
   const renderEventTimeline = () => (
-    <EventInfo ref={timelineRef} sx={{ my: 8, minHeight: "60vh" }}>
+    <EventInfo
+      ref={timelineRef}
+      sx={{
+        width: '100%',
+        maxWidth: 'md',
+        my: 4,
+        minHeight: { xs: '40vh', sm: '50vh', md: '60vh' }
+      }}
+    >
       <EventTimeline
         scrollProgress={timelineProgress}
         eventLocations={eventLocations}
@@ -241,28 +172,48 @@ const DemoEventCard = ({
     </EventInfo>
   );
 
+  const renderGiftMessage = () => (
+    <Box sx={{ width: '100%', maxWidth: 'sm', my: 4 }}>
+      <GiftMessage accountNumber="DE01 2345 6789 0123 4567 8901" />
+    </Box>
+  );
+
+  const renderConfirmButton = () => (
+    <Box sx={{
+      width: '100%',
+      maxWidth: 'sm',
+      display: 'flex',
+      justifyContent: 'center',
+      mt: 4
+    }}>
+      <ConfirmButton
+        onClick={handleOpenModal}
+        fullWidth={isMobile}
+        sx={{
+          maxWidth: isMobile ? '100%' : '300px'
+        }}
+      />
+    </Box>
+  );
+
   return (
-    <CustomCard ref={cardRef} useCardStyles={useCardStyles}>
-      <Box sx={{ position: "relative", overflow: "hidden" }}>
-        <Box sx={{ padding: useCardStyles ? 2 : 0 }}>
-          {renderTitle()}
-          {renderEventInfo()}
-          {/* <FloralSeparatorComponent />
-          {renderEventTimeline()}
-          <FloralSeparatorComponent /> */}
-          {/* <GiftMessage accountNumber="DE01 2345 6789 0123 4567 8901" /> */}
-          {/* <FloralSeparatorComponent /> */}
-          {/* <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <ConfirmButton onClick={handleOpenModal} fullWidth={isMobile} />
-          </Box> */}
-        </Box>
+    <Box sx={getCardStyles(isMobile)}>
+      <Box sx={getContentStyles()}>
+        {renderTitle()}
+        {renderEventInfo()}
+        <FloralSeparatorComponent />
+        {renderEventTimeline()}
+        <FloralSeparatorComponent />
+        {renderGiftMessage()}
+        <FloralSeparatorComponent />
+        {renderConfirmButton()}
       </Box>
-      {/* <ConfirmationModal
+      <ConfirmationModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         userId={userId}
-      /> */}
-    </CustomCard>
+      />
+    </Box>
   );
 };
 
