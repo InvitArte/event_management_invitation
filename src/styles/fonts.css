@@ -10,6 +10,12 @@
     src: url("../assets/fonts/CormorantUpright-Regular.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
+  }
+  @font-face{
+    font-family: "Elegant_font";
+    src: url("../assets/fonts/Elegant_font.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
 
 
-}

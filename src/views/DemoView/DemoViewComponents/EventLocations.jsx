@@ -58,7 +58,7 @@ const renderTitle = (eventLocations) => (
  * @description Estilos para el título.
  */
 const titleStyles = {
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', regular",
   fontSize: "1.5rem"
 };
 

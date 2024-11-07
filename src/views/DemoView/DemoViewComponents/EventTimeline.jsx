@@ -84,7 +84,7 @@ const EventTimeline = ({ scrollProgress, eventLocations }) => {
           sx={{
             mb: 4,
             color: "#8D5444",
-            fontFamily: "'CormorantUpright', regular ",
+            fontFamily: "'Elegant_font', regular ",
             fontSize: { xs: '2rem', sm: '2.5rem' },
           }}
         >

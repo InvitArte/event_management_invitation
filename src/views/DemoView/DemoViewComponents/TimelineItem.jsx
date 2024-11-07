@@ -126,7 +126,7 @@ const TimelineItem = ({
       return (
         <Typography
           sx={{
-            fontFamily: "'CormorantUpright', serif",
+            fontFamily: "'Elegant_font', serif",
             fontSize: "1.2rem",
             mb: 2,
             color: "text.primary",
@@ -139,7 +139,7 @@ const TimelineItem = ({
       return (
         <Typography
           sx={{
-            fontFamily: "'CormorantUpright', serif",
+            fontFamily: "'Elegant_font', serif",
             fontSize: "1.2rem",
             mb: 2,
             color: "text.secondary",
@@ -223,7 +223,7 @@ const TimelineItem = ({
             fontWeight="bold"
             color={mainBlue}
             sx={{
-              fontFamily: "'CormorantUpright', serif",
+              fontFamily: "'Elegant_font', serif",
               fontSize: { xs: "1.5rem", sm: "2rem" },
             }}
           >
@@ -250,7 +250,7 @@ const TimelineItem = ({
           color="text.secondary"
           sx={{
             mt: 1,
-            fontFamily: "'CormorantUpright', serif",
+            fontFamily: "'Elegant_font', serif",
             fontSize: { xs: "1.2rem", sm: "1.4rem" },
             display: "-webkit-box",
             WebkitLineClamp: 2,
@@ -330,7 +330,7 @@ const TimelineItem = ({
             variant="h4"
             component="h2"
             sx={{
-              fontFamily: "'CormorantUpright', serif",
+              fontFamily: "'Elegant_font', serif",
               fontSize: "2.5rem",
               mb: 2,
               fontWeight: "bold",
@@ -342,7 +342,7 @@ const TimelineItem = ({
           <Typography
             id="modal-modal-description"
             sx={{
-              fontFamily: "'CormorantUpright', serif",
+              fontFamily: "'Elegant_font', serif",
               fontSize: "1.5rem",
               mb: 3,
               color: "text.primary",
@@ -353,7 +353,7 @@ const TimelineItem = ({
           <Typography
             variant="h6"
             sx={{
-              fontFamily: "'CormorantUpright', serif",
+              fontFamily: "'Elegant_font', serif",
               fontSize: "1.3rem",
               mb: 1,
               fontWeight: "bold",
@@ -368,7 +368,7 @@ const TimelineItem = ({
               variant="outlined"
               sx={{
                 mt: 2,
-                fontFamily: "'CormorantUpright', serif",
+                fontFamily: "'Elegant_font', serif",
                 fontSize: "1rem",
                 color: mainBlue,
                 borderColor: mainBlue,

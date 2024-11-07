@@ -1,95 +1,88 @@
-/**
- * @module UI/Demo
- * @description Este módulo contiene componentes relacionados con la vista de demostración pública de eventos.
- */
-
-// React
 import React, { useMemo } from "react";
-
-// Bibliotecas de terceros
 import PropTypes from "prop-types";
-
-// Material-UI
 import { Grid, Box, useMediaQuery, useTheme } from "@mui/material";
-
-// hooks y servicios
 import { useDemoView } from "../../hooks";
-
-// Componentes genéricos
 import { LoadingComponent } from "../../components";
-
-// Componentes propios
 import { DemoHeader, DemoEventCard, ConfirmationModal } from "./DemoViewComponents";
+import M_H_fondo from "../../assets/imgs/M_H_fondo.jpeg";
 
-// Assets y estilos
-import Prueba from "../../assets/imgs/prueba_amapolas.png";
-import MobileBackground from "../../assets/imgs/mobile_fondo.png";
-
-/**
- * @constant
- * @name STYLES
- * @type {Object}
- * @memberof module:UI/Demo
- * @description Estilos para los diferentes elementos de la vista de demostración.
- */
 const STYLES = {
   container: (isMobile) => ({
     width: "100%",
     minHeight: "100vh",
     position: "relative",
     overflow: "hidden",
+    display: "flex",
+    flexDirection: "column",
+    backgroundColor: "#2F4F4F"
   }),
   background: (isMobile) => ({
-    position: "absolute",
+    position: "fixed",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundImage: `url(${isMobile ? MobileBackground : Prueba})`,
-    backgroundSize: isMobile ? "120%" : "cover",
-    backgroundPosition: isMobile ? "center top" : "center center",
-    backgroundRepeat: "no-repeat",
-    transform: isMobile ? "none" : "scale(1)",
-    transition: "transform 0.3s ease-out",
-    zIndex: -1,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    '&::before': {
+      content: '""',
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundImage: `url(${M_H_fondo})`,
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundSize: isMobile ? "cover" : "contain",
+      opacity: 0.8,
+      zIndex: -1,
+      height: '100%',
+      width: '100%'
+    }
   }),
   contentWrapper: {
     position: "relative",
     zIndex: 1,
-    minHeight: "100vh",
+    flex: 1,
     display: "flex",
     flexDirection: "column",
+    width: "100%",
+    minHeight: "100vh",
+    backgroundColor: "transparent"
   },
   headerContainer: (isMobile) => ({
     width: "100%",
     padding: isMobile ? "20px" : "40px",
     boxSizing: "border-box",
+    flexShrink: 0
   }),
   content: (isMobile) => ({
-    flexGrow: 1,
+    flex: 1,
     display: "flex",
-    alignItems: "flex-start",
+    alignItems: "center",
+    justifyContent: "center",
     py: isMobile ? 3 : 2,
     px: isMobile ? 2 : 4,
-    mt: isMobile ? 2 : 4,
+    boxSizing: "border-box",
+    minHeight: 0
   }),
+  gridContainer: {
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  gridItem: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "20px"
+  }
 };
 
-/**
- * @component
- * @name DemoView
- * @memberof module:UI/Demo
- * @category Views
- * @description Componente principal para la vista pública. Muestra información del evento y maneja la interacción del usuario.
- *
- * @param {Object} props - Las propiedades del componente.
- * @param {string|number} props.userId - El ID del usuario para cargar la información del evento.
- *
- * @returns {React.Element} Un elemento React que representa la vista pública.
- *
- * @example
- * <DemoView userId="12345" />
- */
 const DemoView = ({ userId }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -104,14 +97,6 @@ const DemoView = ({ userId }) => {
     allergies
   } = useDemoView(userId);
 
-  /**
-   * @constant
-   * @name memoizedEventCard
-   * @memberof module:UI/Demo.DemoView
-   * @inner
-   * @type {React.Element|null}
-   * @description Memoriza el componente DemoEventCard para evitar re-renderizados innecesarios.
-   */
   const memoizedEventCard = useMemo(() => {
     if (!eventData) return null;
     return (
@@ -132,14 +117,6 @@ const DemoView = ({ userId }) => {
     return <div>Error: No se pudo cargar la información del usuario.</div>;
   }
 
-  /**
-   * @function
-   * @name renderContent
-   * @description Renderiza el contenido principal de la vista basado en el estado actual.
-   * @memberof module:UI/Demo.DemoView
-   * @inner
-   * @returns {React.Element|null} El contenido renderizado o null si no hay datos del evento.
-   */
   const renderContent = () => {
     if (error) {
       return (
@@ -148,7 +125,6 @@ const DemoView = ({ userId }) => {
         </Box>
       );
     }
-
     return memoizedEventCard;
   };
 
@@ -161,8 +137,8 @@ const DemoView = ({ userId }) => {
           <DemoHeader onOpenModal={handleOpenModal} />
         </Box>
         <Box sx={STYLES.content(isMobile)}>
-          <Grid container justifyContent="center">
-            <Grid item xs={12} sm={10} md={8} lg={6}>
+          <Grid container sx={STYLES.gridContainer} justifyContent="center">
+            <Grid item xs={12} sm={10} md={8} lg={6} sx={STYLES.gridItem}>
               {renderContent()}
             </Grid>
           </Grid>

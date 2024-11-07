@@ -15,7 +15,7 @@ export const defaultConfig = {
   /**
    * @property {number} userId - ID del usuario por defecto.
    */
-  userId: 5,
+  userId: 6,
 
   /**
    * @property {number} numPlusOne - Número de acompañantes permitidos por defecto.

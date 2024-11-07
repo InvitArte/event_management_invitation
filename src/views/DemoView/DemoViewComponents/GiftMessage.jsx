@@ -61,7 +61,7 @@ const renderGiftMessageText = (theme) => (
     variant="body1"
     align="center"
     sx={{
-      fontFamily: "'CormorantUpright', cursive",
+      fontFamily: "'Elegant_font', cursive",
       fontSize: { xs: '1.2rem', sm: '1.5rem' },
       marginBottom: theme.spacing(2),
       color: 'inherit',

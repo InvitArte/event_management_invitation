@@ -199,7 +199,7 @@ const DemoEventCard = ({
     return (
       <>
         <EventSubtitle variant="h2">¡Nos casamos!</EventSubtitle>
-        <EventTitleStyle variant="h1">Pareja & Pareja</EventTitleStyle>
+        <EventTitleStyle variant="h1">Maria  &  Thibault</EventTitleStyle>
       </>
     );
   };
@@ -214,21 +214,6 @@ const DemoEventCard = ({
    */
   const renderEventInfo = () => (
     <EventInfo>
-       <Typography
-        variant="h6"
-        gutterBottom
-        align="center"
-        sx={{
-          fontFamily: "'CormorantUpright', regular !important",
-          fontSize: isMobile ? "1.5rem !important" : "2.5rem !important",
-          color: "#8D5444",
-          whiteSpace: isMobile ? "nowrap" : "normal",
-          overflow: isMobile ? "hidden" : "visible",
-          textOverflow: isMobile ? "ellipsis" : "clip",
-        }}
-      >
-        Fecha y hora del evento
-      </Typography>
       <Box display="flex" flexDirection="column" gap={2}>
         <CalendarButton
           eventDate={eventDate}
@@ -261,23 +246,22 @@ const DemoEventCard = ({
       <Box sx={{ position: "relative", overflow: "hidden" }}>
         <Box sx={{ padding: useCardStyles ? 2 : 0 }}>
           {renderTitle()}
-          <FloralSeparatorComponent />
           {renderEventInfo()}
-          <FloralSeparatorComponent />
+          {/* <FloralSeparatorComponent />
           {renderEventTimeline()}
-          <FloralSeparatorComponent />
-          <GiftMessage accountNumber="DE01 2345 6789 0123 4567 8901" />
-          <FloralSeparatorComponent />
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <FloralSeparatorComponent /> */}
+          {/* <GiftMessage accountNumber="DE01 2345 6789 0123 4567 8901" /> */}
+          {/* <FloralSeparatorComponent /> */}
+          {/* <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <ConfirmButton onClick={handleOpenModal} fullWidth={isMobile} />
-          </Box>
+          </Box> */}
         </Box>
       </Box>
-      <ConfirmationModal
+      {/* <ConfirmationModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         userId={userId}
-      />
+      /> */}
     </CustomCard>
   );
 };

@@ -99,7 +99,7 @@ const LoadingComponent = ({ isLoading, type = "bar" }) => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#8D5444",
+          backgroundColor: "#2F4F4F",
           zIndex: 1000,
           opacity: isLoading ? 1 : 0,
           pointerEvents: isLoading ? "auto" : "none",

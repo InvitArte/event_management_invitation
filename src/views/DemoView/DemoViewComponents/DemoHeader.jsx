@@ -12,6 +12,7 @@ import { ConfirmButton } from "./index";
 
 // Assets y estilos
 import { mainBlue } from "./index";
+import { Opacity } from "@mui/icons-material";
 
 /**
  * @component DemoHeader
@@ -42,15 +43,15 @@ const DemoHeader = ({ onOpenModal }) => {
   return (
     <Box sx={getContainerStyles(isMobile)}>
       <Box sx={getTitleContainerStyles(isMobile)}>
-        <Typography variant="h3" sx={getSubtitleStyles()}>
-          ¡Nos casamos!
+        <Typography variant="h2" sx={getSubtitleStyles()}>
+          -18 de Octubre, 2025-
         </Typography>
         <Typography variant="h1" sx={getTitleStyles()}>
-          Pareja <span style={getAmpersandStyles()}>&</span> Pareja
+          Maria <span style={getAmpersandStyles()}>&</span> Thibault
         </Typography>
-        <Box sx={getButtonContainerStyles()}>
+        {/* <Box sx={getButtonContainerStyles()}>
           <ConfirmButton onClick={onOpenModal} fullWidth={isMobile} />
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );
@@ -78,11 +79,11 @@ const getContainerStyles = (isMobile) => ({
  */
 const getTitleContainerStyles = (isMobile) => ({
   padding: isMobile ? "20px 40px" : "40px 80px",
-  backgroundColor: "rgba(255, 255, 255, 0.4)",
-  backdropFilter: "blur(1px)",
-  borderRadius: "2px",
-  boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-  border: "1px solid rgba(255, 255, 255, 0.3)",
+  //backgroundColor: "rgba(255, 255, 255, 0.4)",
+  //backdropFilter: "blur(0px)",
+  //borderRadius: "2px",
+  //boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+  //border: "1px solid rgba(255, 255, 255, 0.3)",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -96,23 +97,18 @@ const getTitleContainerStyles = (isMobile) => ({
  * @returns {Object} Objeto de estilos para el subtítulo.
  */
 const getSubtitleStyles = () => ({
-  fontFamily: "'CormorantUpright', regular",
-  fontSize: { xs: "1.2rem", sm: "1.5rem" },
-  color: "#555555",
-  textShadow: "1px 1px 2px rgba(255,255,255,0.5)",
-  marginBottom: "10px",
+  fontFamily: "'Elegant_font', bold",
+  fontSize: { xs: "1.4rem", sm: "1.5rem" },
+  color: "white", // Cambiado de "black" a "white"
+  textShadow: "2px 2px 4px rgba(0,0,0,0.5)", // Cambiado para sombra negra
+  marginBottom: "5px",
 });
 
-/**
- * @function getTitleStyles
- * @description Obtiene los estilos para el título principal.
- * @returns {Object} Objeto de estilos para el título principal.
- */
 const getTitleStyles = () => ({
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', bold",
   fontSize: { xs: "2.5rem", sm: "3.5rem" },
-  color: "#333333",
-  textShadow: "2px 2px 4px rgba(255,255,255,0.5)",
+  color: "white", // Añadido color blanco
+  textShadow: "2px 2px 4px rgba(0,0,0,0.5)", // Corregido para dar sombra negra
   textAlign: "center",
   lineHeight: 1.2,
 });

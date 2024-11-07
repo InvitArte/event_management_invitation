@@ -18,8 +18,8 @@ import {
 } from "@mui/material";
 
 // Definir el color azul principal
-const mainBlue = "#8D5444";
-const darkBlue = " #774436";
+const mainBlue = "#2F4F4F";
+const darkBlue = " #2F4F4F";
 const silver = "#C0C0C0";
 
 // Estilos del modal
@@ -45,7 +45,7 @@ export const CustomDialog = styled(Dialog)(({ theme }) => ({
 
 export const CustomDialogTitle = styled(DialogTitle)(({ theme }) => ({
   color: "#231f20",
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', regular",
   fontSize: "32px",
   padding: "0 40px 8px",
   textAlign: "center",
@@ -74,7 +74,7 @@ export const CustomButton = styled(Button)(({ theme }) => ({
   boxShadow: "rgba(119, 68, 54, 0.3)",
   margin: "1rem auto",
   transition: "all 0.3s ease",
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', regular",
   minWidth: "200px",
   WebkitTapHighlightColor: "transparent",
   "&:hover": {
@@ -117,7 +117,7 @@ export const StyledImage = styled("img")({
 
 export const SuccessMessage = styled("p")({
   color: "#231f20",
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', regular",
   textAlign: "center",
   marginBottom: "24px",
   fontSize: "24px",
@@ -243,7 +243,7 @@ export const EventSubtitle = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1),
   color: mainBlue,
   textAlign: "center",
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', regular",
 }));
 
 export const EventTitleStyle = styled(Typography)(({ theme }) => ({
@@ -254,16 +254,15 @@ export const EventTitleStyle = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(3),
   color: mainBlue,
   textAlign: "center",
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', regular",
 }));
 
 export const EventInfo = styled("div")(({ theme }) => ({
   width: "100%",
   marginBottom: theme.spacing(3),
   padding: theme.spacing(2),
-  // borderRadius: theme.shape.borderRadius,
-  backgroundColor: "transparent",
-  // boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+  borderRadius: theme.shape.borderRadius,
+  // Para soporte en Safari
 }));
 
 export const EventButton = styled(Button)(({ theme }) => ({
@@ -279,7 +278,7 @@ export const EventButton = styled(Button)(({ theme }) => ({
   cursor: "pointer",
   display: "inline-flex",
   fill: "currentcolor",
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', regular",
   fontSize: "20px",
   fontWeight: 500,
   height: "48px",
@@ -338,7 +337,7 @@ export const InvertedEventButton = styled(Button)(({ theme }) => ({
   padding: "12px 24px !important",
   fontSize: "20px !important",
   textTransform: "none !important",
-  fontFamily: "'CormorantUpright', regular !important",
+  fontFamily: "'Elegant_font', regular !important",
   cursor: "pointer !important",
   boxShadow: "2px 2px 4px rgba(141, 84, 68, 0.3) !important",
   transition: "all 0.3s ease !important",
@@ -360,31 +359,69 @@ export const InvertedEventButton = styled(Button)(({ theme }) => ({
   },
 }));
 // Estilos para CountdownTimer
+
+
 export const StyledCountdown = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
-  gap: theme.spacing(2),
+  gap: theme.spacing(1), // Reducido el gap para móvil
+  padding: theme.spacing(2),
+  borderRadius: theme.spacing(1),
 }));
 
 export const TimeUnit = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  padding: theme.spacing(0.5), // Reducido el padding para móvil
+  minWidth: "70px", // Reducido el ancho mínimo
+  transition: 'transform 0.3s ease',
+  '&:hover': {
+    transform: 'scale(1.05)',
+  },
+  [theme.breakpoints.down('sm')]: {
+    minWidth: "55px", // Aún más reducido para móviles
+    padding: theme.spacing(0.25),
+  }
 }));
 
 export const TimeValue = styled(Typography)(({ theme }) => ({
-  fontSize: "3.2rem",
+  fontSize: "2.9rem",
   fontWeight: 700,
   color: mainBlue,
   fontFamily: "'CormorantUpright', regular",
+  textShadow: `
+    -1px -1px 0 rgba(255,255,255,0.3),
+    1px -1px 0 rgba(255,255,255,0.3),
+    -1px 1px 0 rgba(255,255,255,0.3),
+    1px 1px 0 rgba(255,255,255,0.3)
+  `,
+  letterSpacing: '0.02em',
+  width: "100%",
+  textAlign: "center",
+  [theme.breakpoints.down('sm')]: {
+    fontSize: "1.6rem", // Tamaño reducido para móviles
+    letterSpacing: '0.01em',
+  }
 }));
 
 export const TimeLabel = styled(Typography)(({ theme }) => ({
-  fontSize: "1.4rem",
+  fontSize: "1.9rem",
   color: theme.palette.text.secondary,
   fontFamily: "'CormorantUpright', regular",
+  fontWeight: 600,
+  letterSpacing: '0.05em',
+  marginTop: theme.spacing(0.5),
+  //textTransform: 'uppercase',
+  opacity: 0.9,
+  width: "100%",
+  textAlign: "center",
+  [theme.breakpoints.down('sm')]: {
+    fontSize: "1.3rem", // Tamaño reducido para móviles
+    letterSpacing: '0.02em',
+    marginTop: theme.spacing(0.25),
+  }
 }));
-
 // Estilos para GiftMessage
 export const StyledGiftMessage = styled("div")(({ theme }) => ({
   textAlign: "center",
@@ -397,27 +434,27 @@ export const StyledGiftMessage = styled("div")(({ theme }) => ({
 export const GiftMessageText = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1),
   fontStyle: "italic",
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', regular",
   fontSize: "1.7rem",
 }));
 
 export const AccountNumber = styled(Typography)(({ theme }) => ({
   fontWeight: 700,
   color: mainBlue,
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', regular",
   fontSize: "2rem",
 }));
 
 // Nuevos estilos para EventDate y CalendarButton
 export const EventDateTypography = styled(Typography)(({ theme }) => ({
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', regular",
   fontSize: "1.7rem",
   color: mainBlue,
   textAlign: "center",
 }));
 
 export const CalendarButtonStyled = styled(Button)(({ theme }) => ({
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', regular",
   fontSize: "1.4rem",
   backgroundColor: mainBlue,
   color: "white",
@@ -470,7 +507,7 @@ export const TimelineEventContent = styled("div")(({ theme }) => ({
 }));
 
 export const TimelineEventTitle = styled(Typography)(({ theme }) => ({
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', regular",
   fontSize: "2rem",
   color: mainBlue,
   marginBottom: theme.spacing(1),
@@ -501,9 +538,10 @@ export const ElegantButton = styled(Button)(({ theme, inverted = false }) => ({
   textDecoration: 'none',
   textOverflow: 'ellipsis',
   transition: 'all .14s ease-out',
+  textTransform: 'none',
   whiteSpace: 'nowrap',
   color: inverted ? '#ffffff' : mainBlue,
-  fontFamily: "'CormorantUpright', regular",
+  fontFamily: "'Elegant_font', regular",
   '&:hover': {
     boxShadow: `4px 4px 0 ${inverted ? darkBlue : '#ffffff'}`,
     transform: 'translate(-4px,-4px)',
@@ -528,7 +566,7 @@ export const ElegantButton = styled(Button)(({ theme, inverted = false }) => ({
     },
   },
   [theme.breakpoints.down('sm')]: {
-    fontSize: '14px',
+    fontSize: '23px',
     padding: '10px 14px',
   },
 }));
